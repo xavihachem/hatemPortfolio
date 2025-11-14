@@ -39,9 +39,15 @@ export default function Navbar() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
           >
-            <Code2 className="w-8 h-8" />
-            <span>Portfolio</span>
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+            >
+              <Code2 className="w-8 h-8" />
+            </motion.div>
+            <span className="text-gradient">Ciro Hachem</span>
           </motion.a>
 
           {/* Desktop Navigation */}
@@ -50,12 +56,16 @@ export default function Navbar() {
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-primary-600 transition-colors duration-200 font-medium"
+                className="text-gray-700 hover:text-primary-600 transition-colors duration-200 font-medium relative group"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -2 }}
               >
                 {item.name}
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 group-hover:w-full transition-all duration-300"
+                />
               </motion.a>
             ))}
           </div>

@@ -8,19 +8,19 @@ export default function Contact() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'your.email@example.com',
-      href: 'mailto:your.email@example.com',
+      value: 'cirodev@gmail.com',
+      href: 'mailto:cirodev@gmail.com',
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
+      value: '+213 781226974',
+      href: 'tel:+213781226974',
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Your City, Country',
+      value: 'Algiers, Algeria',
       href: '#',
     },
   ]
@@ -69,12 +69,23 @@ export default function Contact() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-center gap-4 glass-effect p-4 rounded-xl hover:shadow-lg transition-all duration-300 group"
+                  whileHover={{ x: 10, scale: 1.02 }}
+                  className="flex items-center gap-4 glass-effect p-4 rounded-xl hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
                 >
-                  <div className="bg-primary-100 w-12 h-12 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-primary-100 to-purple-100 opacity-0 group-hover:opacity-100 transition-opacity"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.div 
+                    className="bg-primary-100 w-12 h-12 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors relative z-10"
+                    whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <item.icon className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <div>
+                  </motion.div>
+                  <div className="relative z-10">
                     <p className="text-sm text-gray-500">{item.label}</p>
                     <p className="text-gray-900 font-medium">{item.value}</p>
                   </div>
@@ -144,13 +155,27 @@ export default function Contact() {
                 />
               </div>
 
-              <button
+              <motion.button
                 type="submit"
-                className="w-full bg-primary-600 text-white py-4 rounded-lg font-semibold hover:bg-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+                className="w-full bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 text-white py-4 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group relative overflow-hidden"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span>Send Message</span>
-                <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-primary-600"
+                  initial={{ x: '100%' }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <span className="relative z-10">Send Message</span>
+                <motion.div
+                  className="relative z-10"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <Send className="w-5 h-5" />
+                </motion.div>
+              </motion.button>
             </form>
           </motion.div>
         </div>

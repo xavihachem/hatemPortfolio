@@ -75,11 +75,22 @@ export default function Skills() {
               <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-4">
                   <motion.div 
-                    className="bg-gradient-to-br from-primary-100 to-purple-100 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
+                    className="bg-gradient-to-br from-primary-100 to-purple-100 w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform relative"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <category.icon className="w-7 h-7 text-primary-600" />
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-br from-primary-400 to-purple-400 rounded-xl blur-md opacity-0 group-hover:opacity-50"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      }}
+                    />
+                    <category.icon className="w-7 h-7 text-primary-600 relative z-10" />
                   </motion.div>
                   <h3 className="text-xl font-bold text-gray-900 group-hover:text-gradient transition-all">{category.title}</h3>
                 </div>

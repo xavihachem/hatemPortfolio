@@ -91,25 +91,62 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="glass-effect p-8 rounded-2xl max-w-4xl mx-auto"
+          className="glass-effect p-8 rounded-2xl max-w-4xl mx-auto relative overflow-hidden"
         >
-          <h3 className="text-2xl font-bold mb-4 text-gray-900">My Journey</h3>
-          <div className="space-y-4 text-gray-600 leading-relaxed">
-            <p>
-              With a Master's degree in Computer Science, I've built a strong foundation in software development,
-              algorithms, and system design. My academic journey has equipped me with both theoretical knowledge
-              and practical skills to tackle real-world challenges.
-            </p>
-            <p>
-              Throughout my career, I've worked on diverse projects ranging from web applications to complex
-              systems. My freelancing experience has taught me the importance of clear communication, meeting
-              deadlines, and exceeding client expectations.
-            </p>
-            <p>
-              I'm constantly learning and staying updated with the latest technologies and best practices in
-              software development. My goal is to create solutions that not only work but also provide
-              exceptional user experiences.
-            </p>
+          <motion.div
+            className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-200 via-purple-200 to-pink-200 rounded-full blur-3xl opacity-30"
+            animate={{
+              scale: [1, 1.2, 1],
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <div className="relative z-10">
+            <motion.h3 
+              className="text-2xl font-bold mb-4 text-gray-900"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              My Journey
+            </motion.h3>
+            <div className="space-y-4 text-gray-600 leading-relaxed">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                With a Master's degree in Computer Science, I've built a strong foundation in software development,
+                algorithms, and system design. Based in Algiers, Algeria, I bring a unique perspective to the global
+                tech community, combining international best practices with local innovation.
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                Throughout my career, I've worked on diverse projects ranging from web applications to complex
+                systems. My freelancing experience has taught me the importance of clear communication, meeting
+                deadlines, and exceeding client expectations across different time zones and cultures.
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                I'm constantly learning and staying updated with the latest technologies and best practices in
+                software development. My goal is to create solutions that not only work but also provide
+                exceptional user experiences that make a real difference in people's lives.
+              </motion.p>
+            </div>
           </div>
         </motion.div>
       </div>

@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Github, Linkedin, Mail, Download, ArrowDown, Sparkles, Code, Zap } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -76,11 +77,52 @@ export default function Hero() {
         style={{ y, opacity }}
       >
         <div className="text-center perspective-1000">
+          {/* Profile Image with 3D Effect */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0, rotateY: 180 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ duration: 1, type: 'spring', bounce: 0.5 }}
+            className="mb-8 inline-block"
+          >
+            <motion.div
+              className="relative w-40 h-40 mx-auto"
+              whileHover={{ scale: 1.1, rotateZ: 5 }}
+              animate={{ 
+                y: [0, -10, 0],
+              }}
+              transition={{ 
+                y: { duration: 3, repeat: Infinity, ease: 'easeInOut' }
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 rounded-full blur-xl opacity-50"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 180, 360],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'linear',
+                }}
+              />
+              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                <Image
+                  src="/profile.png"
+                  alt="Ciro Hachem"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+
           {/* Animated Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, type: 'spring' }}
+            transition={{ duration: 0.5, type: 'spring', delay: 0.3 }}
             className="inline-block mb-8"
           >
             <div className="glass-effect px-6 py-3 rounded-full inline-flex items-center gap-2 glow-effect">
@@ -120,16 +162,7 @@ export default function Hero() {
                   animation: 'gradient-shift 3s ease infinite',
                 }}
               >
-                Creative
-              </motion.span>
-              <motion.span 
-                className="block text-gradient-2"
-                style={{
-                  backgroundSize: '200% 200%',
-                  animation: 'gradient-shift 3s ease infinite',
-                }}
-              >
-                Developer
+                Ciro Hachem
               </motion.span>
             </h1>
           </motion.div>

@@ -1,0 +1,10 @@
+# robots.txt for Ciro Hachem Portfolio
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://cirohachem.com/sitemap.xml
+
+# Disallow admin or private paths (if any in the future)
+# Disallow: /admin/
