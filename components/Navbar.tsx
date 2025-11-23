@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,61 +26,63 @@ export default function Navbar() {
   ]
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled 
-          ? 'bg-white/10 backdrop-blur-md border-b border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)]' 
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <>
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+        className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
+      >
+        <div 
+            className={`
+                flex items-center justify-between 
+                px-6 py-3 rounded-full 
+                backdrop-blur-md border border-white/20 shadow-lg
+                transition-all duration-500 ease-out
+                ${scrolled ? 'bg-white/80 w-[90%] max-w-5xl' : 'bg-white/50 w-[95%] max-w-6xl'}
+            `}
+        >
           {/* Logo */}
           <motion.a
             href="#home"
             className="flex items-center space-x-2 text-xl font-bold relative group"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
             whileHover={{ scale: 1.05 }}
           >
-            <motion.div
-              className="relative z-10 p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20"
-              whileHover={{ rotate: 180, backgroundColor: "rgba(255,255,255,0.2)" }}
-              transition={{ duration: 0.6, type: "spring" }}
-            >
-              <Code2 className="w-6 h-6 text-primary-600" />
-            </motion.div>
-            <span className="text-gradient font-extrabold tracking-tight">Ciro Hachem</span>
-            <motion.div
-              className="absolute -inset-2 bg-gradient-to-r from-primary-500/20 to-purple-500/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            />
+            <div className="relative p-2 bg-gradient-to-tr from-primary-500 to-purple-600 rounded-xl text-white shadow-lg group-hover:rotate-12 transition-transform duration-300">
+              <Code2 className="w-5 h-5" />
+            </div>
+            <span className="text-gray-800 font-bold tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary-600 group-hover:to-purple-600 transition-all">
+                Ciro
+            </span>
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center gap-1 bg-gray-100/50 p-1 rounded-full border border-white/20">
             {navItems.map((item, index) => (
-              <motion.a
+              <a
                 key={item.name}
                 href={item.href}
-                className="relative px-4 py-2 text-gray-700 font-medium transition-colors duration-200 group overflow-hidden rounded-full"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="relative px-5 py-2 text-sm font-medium rounded-full transition-colors duration-300"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                <span className={`relative z-10 transition-colors duration-300 ${hoveredIndex === index ? 'text-white' : 'text-gray-600'}`}>
                   {item.name}
                 </span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  layoutId="navbar-hover"
-                />
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary-400 to-purple-400 opacity-0 group-hover:opacity-50 blur-md transition-opacity duration-300"
-                />
-              </motion.a>
+                
+                <AnimatePresence>
+                    {hoveredIndex === index && (
+                    <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-primary-500 to-purple-600 rounded-full shadow-md"
+                        layoutId="navbar-pill"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                    )}
+                </AnimatePresence>
+              </a>
             ))}
           </div>
 
@@ -87,29 +90,29 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-primary-600 transition-colors"
+              className="p-2 text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
-      </div>
+      </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-effect"
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="fixed top-24 left-4 right-4 z-40 bg-white/90 backdrop-blur-xl p-4 rounded-2xl shadow-2xl border border-white/20 md:hidden"
           >
-            <div className="px-4 pt-2 pb-4 space-y-2">
+            <div className="flex flex-col space-y-2">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                  className="px-4 py-3 text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-primary-500 hover:to-purple-600 rounded-xl transition-all font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
@@ -119,6 +122,7 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   )
 }
+
