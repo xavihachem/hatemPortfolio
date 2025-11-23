@@ -12,12 +12,6 @@ export default function Contact() {
       href: 'mailto:cirodev@gmail.com',
     },
     {
-      icon: Phone,
-      label: 'Phone',
-      value: '+213 781226974',
-      href: 'tel:+213781226974',
-    },
-    {
       icon: MapPin,
       label: 'Location',
       value: 'Algiers, Algeria',

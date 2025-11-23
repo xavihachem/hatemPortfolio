@@ -26,8 +26,10 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled 
+          ? 'bg-white/10 backdrop-blur-md border-b border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)]' 
+          : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,36 +37,47 @@ export default function Navbar() {
           {/* Logo */}
           <motion.a
             href="#home"
-            className="flex items-center space-x-2 text-xl font-bold text-primary-600"
-            initial={{ opacity: 0, x: -20 }}
+            className="flex items-center space-x-2 text-xl font-bold relative group"
+            initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
             whileHover={{ scale: 1.05 }}
           >
             <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+              className="relative z-10 p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20"
+              whileHover={{ rotate: 180, backgroundColor: "rgba(255,255,255,0.2)" }}
+              transition={{ duration: 0.6, type: "spring" }}
             >
-              <Code2 className="w-8 h-8" />
+              <Code2 className="w-6 h-6 text-primary-600" />
             </motion.div>
-            <span className="text-gradient">Ciro Hachem</span>
+            <span className="text-gradient font-extrabold tracking-tight">Ciro Hachem</span>
+            <motion.div
+              className="absolute -inset-2 bg-gradient-to-r from-primary-500/20 to-purple-500/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            />
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-2">
             {navItems.map((item, index) => (
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-primary-600 transition-colors duration-200 font-medium relative group"
+                className="relative px-4 py-2 text-gray-700 font-medium transition-colors duration-200 group overflow-hidden rounded-full"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -2 }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {item.name}
-                <motion.span
-                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 group-hover:w-full transition-all duration-300"
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                  {item.name}
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  layoutId="navbar-hover"
+                />
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-primary-400 to-purple-400 opacity-0 group-hover:opacity-50 blur-md transition-opacity duration-300"
                 />
               </motion.a>
             ))}
