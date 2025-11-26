@@ -51,12 +51,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon', type: 'image/png', sizes: '32x32' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png' },
+      { url: '/apple-icon', type: 'image/png' },
     ],
   },
   manifest: '/site.webmanifest',
@@ -82,10 +80,8 @@ export default function RootLayout({
       addressCountry: 'DZ',
     },
     sameAs: [
-      // Add your social media profiles here
-      // 'https://github.com/yourusername',
-      // 'https://linkedin.com/in/yourusername',
-      // 'https://twitter.com/yourusername',
+      'https://github.com/xavihachem',
+      'https://www.linkedin.com/in/hachem-djefafla-9069042ba/',
     ],
     knowsAbout: [
       'Full-Stack Development',
