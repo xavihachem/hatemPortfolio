@@ -36,8 +36,8 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
   const mouseXSpring = useSpring(x)
   const mouseYSpring = useSpring(y)
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['12deg', '-12deg'])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-12deg', '12deg'])
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['8deg', '-8deg'])
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-8deg', '8deg'])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -65,7 +65,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
       style={{
         rotateX,
         rotateY,
@@ -74,11 +74,12 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className="relative group perspective-1000"
+      className="relative group perspective-1000 h-full"
+      data-cursor="view"
     >
-      <div className="glass-effect rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform-gpu border border-white/20">
-        {/* Creative Gradient Header */}
-        <div className={`relative h-52 bg-gradient-to-br ${gradientClass} overflow-hidden`}>
+      <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform-gpu border border-gray-100 h-full flex flex-col">
+        {/* Creative Gradient Header - Fixed height */}
+        <div className={`relative h-44 bg-gradient-to-br ${gradientClass} overflow-hidden flex-shrink-0`}>
           {/* Animated mesh pattern */}
           <div className="absolute inset-0 opacity-30">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -93,19 +94,14 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
           
           {/* Floating geometric shapes */}
           <motion.div
-            className="absolute top-4 right-4 w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm"
+            className="absolute top-3 right-3 w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm"
             animate={isHovered ? { scale: 1.2, rotate: 90 } : { scale: 1, rotate: 0 }}
             transition={{ duration: 0.5 }}
           />
           <motion.div
-            className="absolute bottom-8 left-8 w-16 h-16 rounded-lg bg-white/10 backdrop-blur-sm rotate-45"
+            className="absolute bottom-6 left-6 w-12 h-12 rounded-lg bg-white/10 backdrop-blur-sm rotate-45"
             animate={isHovered ? { scale: 1.3, rotate: 135 } : { scale: 1, rotate: 45 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-          />
-          <motion.div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm"
-            animate={isHovered ? { scale: 1.5 } : { scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
           />
           
           {/* Central Icon */}
@@ -114,44 +110,15 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
             animate={isHovered ? { scale: 1.1, y: -5 } : { scale: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-2xl border border-white/30">
-              <IconComponent className="w-10 h-10 text-white" strokeWidth={1.5} />
+            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-2xl border border-white/30">
+              <IconComponent className="w-8 h-8 text-white" strokeWidth={1.5} />
             </div>
           </motion.div>
-          
-          {/* Floating particles on hover */}
-          {isHovered && (
-            <>
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-white rounded-full"
-                  initial={{ 
-                    x: 100 + Math.random() * 100,
-                    y: 100 + Math.random() * 50,
-                    opacity: 0,
-                    scale: 0
-                  }}
-                  animate={{ 
-                    y: -50,
-                    opacity: [0, 1, 0],
-                    scale: [0, 1, 0.5],
-                  }}
-                  transition={{ 
-                    duration: 2,
-                    delay: i * 0.15,
-                    repeat: Infinity,
-                    ease: "easeOut"
-                  }}
-                />
-              ))}
-            </>
-          )}
 
           {/* Featured badge */}
           {project.featured && (
             <motion.div 
-              className="absolute top-4 left-4 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full flex items-center gap-1 border border-white/30"
+              className="absolute top-3 left-3 px-2.5 py-1 bg-white/20 backdrop-blur-md rounded-full flex items-center gap-1 border border-white/30"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
@@ -162,35 +129,41 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
           )}
         </div>
         
-        <div className="p-6 relative bg-white" style={{ transform: 'translateZ(30px)' }}>
-          <div className="flex items-start justify-between mb-3">
-            <h3 className="text-xl font-bold text-gray-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary-600 group-hover:to-purple-600 transition-all duration-300">
-              {project.title}
-            </h3>
-          </div>
+        {/* Content area - flex-grow to fill remaining space */}
+        <div className="p-5 flex flex-col flex-grow bg-white">
+          <h3 className="text-lg font-bold text-gray-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary-600 group-hover:to-purple-600 transition-all duration-300 mb-2">
+            {project.title}
+          </h3>
           
-          <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+          {/* Description with fixed height using line-clamp */}
+          <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
             {project.description}
           </p>
           
-          <div className="flex flex-wrap gap-2 mb-5">
-            {project.tags.map((tag: string) => (
-              <motion.span
+          {/* Tags - fixed area */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.tags.slice(0, 4).map((tag: string) => (
+              <span
                 key={tag}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-3 py-1.5 bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 rounded-lg text-xs font-medium border border-gray-200 hover:border-primary-300 hover:from-primary-50 hover:to-purple-50 transition-all duration-300"
+                className="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-xs font-medium"
               >
                 {tag}
-              </motion.span>
+              </span>
             ))}
+            {project.tags.length > 4 && (
+              <span className="px-2 py-1 bg-gray-100 text-gray-500 rounded-md text-xs font-medium">
+                +{project.tags.length - 4}
+              </span>
+            )}
           </div>
 
-          <div className="flex gap-3 pt-4 border-t border-gray-100">
+          {/* Buttons - always at bottom */}
+          <div className="flex gap-2 pt-3 border-t border-gray-100 mt-auto">
             <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 bg-gray-900 text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition-all duration-300"
+              className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -201,7 +174,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 bg-gradient-to-r ${gradientClass} text-white rounded-xl text-sm font-medium hover:opacity-90 transition-all duration-300`}
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 bg-gradient-to-r ${gradientClass} text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all duration-300`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -219,7 +192,7 @@ export default function Projects() {
   const projects = [
     {
       title: 'NexusCommerce',
-      description: 'A modern e-commerce platform with AI-powered product recommendations, real-time inventory tracking, and seamless Stripe payment integration. Features an intuitive admin dashboard for complete store management.',
+      description: 'A modern e-commerce platform with AI-powered product recommendations, real-time inventory tracking, and seamless Stripe payment integration.',
       tags: ['Next.js', 'TypeScript', 'Prisma', 'Stripe', 'Redis'],
       iconType: 'fullstack',
       github: 'https://github.com/xavihachem',
@@ -228,7 +201,7 @@ export default function Projects() {
     },
     {
       title: 'TaskFlow Pro',
-      description: 'Enterprise-grade project management solution with Kanban boards, Gantt charts, real-time collaboration, and automated workflow triggers. Built for teams that demand efficiency.',
+      description: 'Enterprise-grade project management solution with Kanban boards, Gantt charts, real-time collaboration, and automated workflow triggers.',
       tags: ['React', 'Node.js', 'PostgreSQL', 'Socket.io', 'Docker'],
       iconType: 'web',
       github: 'https://github.com/xavihachem',
@@ -237,7 +210,7 @@ export default function Projects() {
     },
     {
       title: 'Neural Analytics',
-      description: 'Advanced data analytics platform leveraging machine learning for predictive insights. Features interactive visualizations, custom report generation, and automated anomaly detection.',
+      description: 'Advanced data analytics platform leveraging machine learning for predictive insights with interactive visualizations and anomaly detection.',
       tags: ['Python', 'TensorFlow', 'FastAPI', 'React', 'D3.js'],
       iconType: 'ai',
       github: 'https://github.com/xavihachem',
@@ -246,8 +219,8 @@ export default function Projects() {
     },
     {
       title: 'ConnectHub',
-      description: 'Cross-platform social networking app with end-to-end encrypted messaging, story sharing, and live streaming capabilities. Optimized for performance with 60fps animations.',
-      tags: ['React Native', 'Firebase', 'WebRTC', 'Redux Toolkit'],
+      description: 'Cross-platform social networking app with end-to-end encrypted messaging, story sharing, and live streaming capabilities.',
+      tags: ['React Native', 'Firebase', 'WebRTC', 'Redux'],
       iconType: 'mobile',
       github: 'https://github.com/xavihachem',
       demo: '#',
@@ -255,7 +228,7 @@ export default function Projects() {
     },
     {
       title: 'CloudVault',
-      description: 'Secure cloud storage solution with zero-knowledge encryption, file versioning, and collaborative workspaces. Features intelligent file organization powered by ML.',
+      description: 'Secure cloud storage solution with zero-knowledge encryption, file versioning, and collaborative workspaces powered by ML.',
       tags: ['Go', 'AWS S3', 'React', 'PostgreSQL', 'gRPC'],
       iconType: 'security',
       github: 'https://github.com/xavihachem',
@@ -264,7 +237,7 @@ export default function Projects() {
     },
     {
       title: 'DevPortfolio CMS',
-      description: 'Headless CMS specifically designed for developer portfolios. Drag-and-drop interface, MDX support, automatic SEO optimization, and one-click deployment to Vercel.',
+      description: 'Headless CMS for developer portfolios with drag-and-drop interface, MDX support, and automatic SEO optimization.',
       tags: ['Next.js', 'Sanity', 'TailwindCSS', 'Vercel', 'MDX'],
       iconType: 'creative',
       github: 'https://github.com/xavihachem',
@@ -273,7 +246,7 @@ export default function Projects() {
     },
     {
       title: 'HealthSync',
-      description: 'Comprehensive fitness and wellness platform with personalized workout plans, nutrition tracking, progress analytics, and integration with popular wearables.',
+      description: 'Comprehensive fitness platform with personalized workout plans, nutrition tracking, and integration with popular wearables.',
       tags: ['Vue.js', 'Express', 'MongoDB', 'Chart.js', 'PWA'],
       iconType: 'mobile',
       github: 'https://github.com/xavihachem',
@@ -282,12 +255,48 @@ export default function Projects() {
     },
     {
       title: 'LaunchPad',
-      description: 'SaaS boilerplate for rapid startup development. Includes authentication, billing, team management, and analytics out of the box. Ship your MVP in days, not months.',
+      description: 'SaaS boilerplate for rapid startup development with authentication, billing, team management, and analytics built-in.',
       tags: ['Next.js', 'Supabase', 'Stripe', 'TailwindCSS', 'Resend'],
       iconType: 'startup',
       github: 'https://github.com/xavihachem',
       demo: '#',
       featured: true,
+    },
+    {
+      title: 'CodeReview AI',
+      description: 'AI-powered code review assistant that analyzes pull requests, suggests improvements, and ensures code quality standards.',
+      tags: ['Python', 'OpenAI', 'GitHub API', 'FastAPI', 'Redis'],
+      iconType: 'ai',
+      github: 'https://github.com/xavihachem',
+      demo: '#',
+      featured: true,
+    },
+    {
+      title: 'RealEstate360',
+      description: 'Virtual property tour platform with 3D walkthroughs, AR furniture placement, and real-time agent communication.',
+      tags: ['Three.js', 'React', 'WebXR', 'Node.js', 'MongoDB'],
+      iconType: 'creative',
+      github: 'https://github.com/xavihachem',
+      demo: '#',
+      featured: false,
+    },
+    {
+      title: 'FinTrack Pro',
+      description: 'Personal finance management app with expense tracking, investment portfolio analysis, and AI-driven financial insights.',
+      tags: ['React Native', 'Python', 'PostgreSQL', 'Plaid', 'ML'],
+      iconType: 'mobile',
+      github: 'https://github.com/xavihachem',
+      demo: '#',
+      featured: false,
+    },
+    {
+      title: 'EventMaster',
+      description: 'Event management platform with ticketing, attendee tracking, live streaming integration, and post-event analytics.',
+      tags: ['Next.js', 'Stripe', 'Twilio', 'PostgreSQL', 'Redis'],
+      iconType: 'web',
+      github: 'https://github.com/xavihachem',
+      demo: '#',
+      featured: false,
     },
   ]
 

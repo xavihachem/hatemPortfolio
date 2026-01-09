@@ -1,15 +1,18 @@
 'use client'
 
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Github, Linkedin, Mail, Download, ArrowDown, Sparkles, Code, Zap } from 'lucide-react'
+import { Github, Linkedin, Mail, Download, ArrowDown, Sparkles, Code, Zap, ChevronDown, Play } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [0, 500], [0, 150])
-  const opacity = useTransform(scrollY, [0, 300], [1, 0])
+  const y = useTransform(scrollY, [0, 800], [0, 200])
+  const opacity = useTransform(scrollY, [0, 600], [1, 0])
+  const scale = useTransform(scrollY, [0, 400], [1, 0.9])
+  const buttonsY = useTransform(scrollY, [0, 400], [0, -50])
+  const buttonsOpacity = useTransform(scrollY, [0, 500], [1, 0])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -74,7 +77,7 @@ export default function Hero() {
 
       <motion.div 
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10"
-        style={{ y, opacity }}
+        style={{ y, opacity, scale }}
       >
         <div className="text-center perspective-1000">
           {/* Profile Image with 3D Effect */}
@@ -202,20 +205,25 @@ export default function Hero() {
             Crafting <span className="text-gradient font-semibold">extraordinary digital experiences</span> with cutting-edge technology and creative innovation
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - Fixed position with better visibility */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
+            style={{ y: buttonsY, opacity: buttonsOpacity }}
           >
             <motion.a
               href="#projects"
-              className="group relative px-8 py-4 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 text-white rounded-full font-semibold overflow-hidden"
-              whileHover={{ scale: 1.05 }}
+              className="group relative px-8 py-4 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 text-white rounded-2xl font-semibold overflow-hidden shadow-xl shadow-primary-500/25"
+              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(14, 165, 233, 0.4)' }}
               whileTap={{ scale: 0.95 }}
+              data-cursor="view"
             >
-              <span className="relative z-10">View My Work</span>
+              <span className="relative z-10 flex items-center gap-2">
+                <Play className="w-5 h-5" />
+                View My Work
+              </span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-primary-600"
                 initial={{ x: '100%' }}
@@ -224,12 +232,13 @@ export default function Hero() {
               />
             </motion.a>
             <motion.a
-              href="#contact"
-              className="px-8 py-4 glass-effect text-gray-700 rounded-full font-semibold hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 glow-effect"
-              whileHover={{ scale: 1.05 }}
+              href="/cv.pdf"
+              download
+              className="px-8 py-4 bg-white/90 backdrop-blur-lg text-gray-800 rounded-2xl font-semibold hover:bg-white transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center gap-2 border border-gray-200"
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Download className="w-5 h-5" />
+              <Download className="w-5 h-5 text-primary-600" />
               Download CV
             </motion.a>
           </motion.div>
