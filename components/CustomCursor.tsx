@@ -73,14 +73,14 @@ export default function CustomCursor() {
   }, [cursorX, cursorY])
 
   const getCursorSize = () => {
-    if (cursorVariant === 'view') return 80
+    if (cursorVariant === 'view') return 60
     if (isClicking) return 8
     if (isHovering) return 16
     return 12
   }
 
   const getTrailSize = () => {
-    if (cursorVariant === 'view') return 100
+    if (cursorVariant === 'view') return 75
     if (isClicking) return 30
     if (isHovering) return 60
     return 40
