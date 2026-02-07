@@ -191,6 +191,15 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
 export default function Projects() {
   const projects = [
     {
+      title: 'EJ Job Application',
+      description: 'AI-powered job application platform built with Flutter. Features smart resume matching, automated cover letter generation, and intelligent job recommendations.',
+      tags: ['Flutter', 'Dart', 'AI/ML', 'Firebase', 'REST API'],
+      iconType: 'mobile',
+      github: 'https://github.com/xavihachem',
+      demo: 'https://e-job-application-ai-powered.netlify.app/',
+      featured: true,
+    },
+    {
       title: 'NexusCommerce',
       description: 'A modern e-commerce platform with AI-powered product recommendations, real-time inventory tracking, and seamless Stripe payment integration.',
       tags: ['Next.js', 'TypeScript', 'Prisma', 'Stripe', 'Redis'],
