@@ -33,11 +33,7 @@ export default function CustomCursor() {
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       
-      if (target.closest('[data-cursor="view"]')) {
-        setIsHovering(true)
-        setCursorVariant('view')
-        setCursorText('View')
-      } else if (target.closest('[data-cursor="link"]')) {
+      if (target.closest('[data-cursor="link"]')) {
         setIsHovering(true)
         setCursorVariant('link')
         setCursorText('')
@@ -73,14 +69,12 @@ export default function CustomCursor() {
   }, [cursorX, cursorY])
 
   const getCursorSize = () => {
-    if (cursorVariant === 'view') return 60
     if (isClicking) return 8
     if (isHovering) return 16
     return 12
   }
 
   const getTrailSize = () => {
-    if (cursorVariant === 'view') return 75
     if (isClicking) return 30
     if (isHovering) return 60
     return 40
@@ -100,13 +94,11 @@ export default function CustomCursor() {
         animate={{
           width: getCursorSize(),
           height: getCursorSize(),
-          backgroundColor: cursorVariant === 'view' 
-            ? 'rgba(14, 165, 233, 0.9)' 
-            : cursorVariant === 'text' 
+          backgroundColor: cursorVariant === 'text' 
               ? 'transparent'
               : 'rgba(255, 255, 255, 1)',
-          mixBlendMode: cursorVariant === 'view' ? 'normal' : 'difference',
-          borderRadius: cursorVariant === 'view' ? '20%' : '50%',
+          mixBlendMode: 'difference',
+          borderRadius: '50%',
         }}
         transition={{
           width: { type: 'spring', stiffness: 400, damping: 25 },
@@ -119,7 +111,7 @@ export default function CustomCursor() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
-            className="text-white text-xs font-bold tracking-wider"
+            className="text-xs font-bold tracking-wider"
           >
             {cursorText}
           </motion.span>

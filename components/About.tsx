@@ -42,25 +42,25 @@ export default function About() {
   const timeline = [
     {
       year: '2024',
-      title: 'Senior Full-Stack Developer',
+      title: 'Flutter Developer',
       company: 'Freelance',
-      description: 'Leading complex web application projects, specializing in React, Next.js, and Node.js ecosystems.',
+      description: 'Building cross-platform mobile applications with Flutter, specializing in AI integration and beautiful UI/UX design.',
       icon: Rocket,
       color: 'from-primary-500 to-purple-500',
     },
     {
       year: '2023',
-      title: 'AI/ML Integration Specialist',
-      company: 'Various Clients',
-      description: 'Integrated machine learning models into production applications, working with TensorFlow and Python.',
+      title: 'Mobile App Developer',
+      company: 'Freelance',
+      description: 'Developed multiple Flutter applications for clients, implementing state management, Firebase integration, and REST APIs.',
       icon: Code2,
       color: 'from-purple-500 to-pink-500',
     },
     {
       year: '2022',
-      title: 'Full-Stack Developer',
+      title: 'Junior Flutter Developer',
       company: 'Freelance',
-      description: 'Built scalable web applications and APIs for startups and established businesses.',
+      description: 'Started professional journey building mobile apps with Flutter and Dart, learning best practices and app architecture.',
       icon: Globe,
       color: 'from-pink-500 to-rose-500',
     },
@@ -83,15 +83,15 @@ export default function About() {
   const tabContent = [
     {
       title: 'My Journey',
-      content: `With a Master's degree in Computer Science, I've built a strong foundation in software development, algorithms, and system design. Based in Algiers, Algeria, I bring a unique perspective to the global tech community, combining international best practices with local innovation.`,
+      content: `With a Master's degree in Computer Science, I've focused my career on mobile app development with Flutter. Based in Algiers, Algeria, I specialize in building beautiful, performant cross-platform applications that deliver exceptional user experiences. My passion lies in creating innovative solutions using Flutter's powerful framework.`,
     },
     {
       title: 'Professional Experience',
-      content: `Throughout my career, I've worked on diverse projects ranging from web applications to complex systems. My freelancing experience has taught me the importance of clear communication, meeting deadlines, and exceeding client expectations across different time zones and cultures.`,
+      content: `I have hands-on experience building diverse Flutter applications ranging from e-commerce platforms to AI-powered job search tools. My freelancing journey has taught me the importance of clean architecture, responsive design, and delivering high-quality mobile experiences that users love.`,
     },
     {
       title: 'My Philosophy',
-      content: `I'm constantly learning and staying updated with the latest technologies and best practices in software development. My goal is to create solutions that not only work but also provide exceptional user experiences that make a real difference in people's lives.`,
+      content: `I'm constantly learning and staying updated with the latest Flutter ecosystem updates and best practices. My goal is to create mobile applications that not only work flawlessly but also provide delightful user experiences that make a real difference in people's daily lives.`,
     },
   ]
 
@@ -132,7 +132,7 @@ export default function About() {
             About <span className="text-gradient">Me</span>
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            A passionate computer scientist dedicated to creating impactful digital solutions
+            A passionate Flutter developer dedicated to building beautiful cross-platform mobile applications
           </p>
         </motion.div>
 
