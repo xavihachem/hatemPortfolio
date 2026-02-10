@@ -28,7 +28,7 @@ export default function Hero() {
   const socialLinks = [
     { icon: Github, href: 'https://github.com/xavihachem', label: 'GitHub' },
     { icon: Linkedin, href: 'https://www.linkedin.com/in/hachem-djefafla-9069042ba/', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:cirodev@gmail.com', label: 'Email' },
+    { icon: Mail, href: 'mailto:hachem02000@gmail.com', label: 'Email' },
   ]
 
   const floatingIcons = [

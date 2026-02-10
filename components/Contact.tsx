@@ -12,8 +12,8 @@ export default function Contact() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'cirodev@gmail.com',
-      href: 'mailto:cirodev@gmail.com',
+      value: 'hachem02000@gmail.com',
+      href: 'mailto:hachem02000@gmail.com',
       color: 'from-red-500 to-orange-500',
     },
     {
@@ -49,7 +49,7 @@ export default function Contact() {
   const socialLinks = [
     { icon: Github, href: 'https://github.com/xavihachem', label: 'GitHub', color: 'hover:bg-gray-700' },
     { icon: Linkedin, href: 'https://www.linkedin.com/in/hachem-djefafla-9069042ba/', label: 'LinkedIn', color: 'hover:bg-blue-600' },
-    { icon: Mail, href: 'mailto:cirodev@gmail.com', label: 'Email', color: 'hover:bg-red-500' },
+    { icon: Mail, href: 'mailto:hachem02000@gmail.com', label: 'Email', color: 'hover:bg-red-500' },
   ]
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Ciro Hachem | Full-Stack Developer & Freelancer',
   description: 'Full-stack developer and freelancer based in Algiers, Algeria. Master\'s in Computer Science specializing in web development, AI/ML, and creating exceptional digital experiences.',
   keywords: ['Ciro Hachem', 'Full-Stack Developer', 'Freelancer', 'Web Developer', 'Algeria', 'Algiers', 'React', 'Next.js', 'Node.js', 'Software Engineer', 'Computer Science'],
-  authors: [{ name: 'Ciro Hachem', url: 'mailto:cirodev@gmail.com' }],
+  authors: [{ name: 'Ciro Hachem', url: 'mailto:hachem02000@gmail.com' }],
   creator: 'Ciro Hachem',
   publisher: 'Ciro Hachem',
   metadataBase: new URL('https://cirohachem.com'), // Update this with your actual domain
@@ -72,7 +72,7 @@ export default function RootLayout({
     jobTitle: 'Full-Stack Developer',
     description: 'Full-stack developer and freelancer based in Algiers, Algeria. Master\'s in Computer Science specializing in web development, AI/ML, and creating exceptional digital experiences.',
     url: 'https://cirohachem.com',
-    email: 'cirodev@gmail.com',
+    email: 'hachem02000@gmail.com',
     telephone: '+213781226974',
     address: {
       '@type': 'PostalAddress',
