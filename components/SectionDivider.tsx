@@ -1,33 +1,30 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { memo } from 'react'
+import { motion, LazyMotion, domAnimation } from 'framer-motion'
 
-export default function SectionDivider() {
+const SectionDivider = memo(function SectionDivider() {
   return (
-    <div className="relative h-32 flex items-center justify-center overflow-hidden">
-      <motion.div
-        className="flex gap-2"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="w-2 h-2 rounded-full bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600"
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 2,
-              delay: i * 0.2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </motion.div>
-    </div>
+    <LazyMotion features={domAnimation}>
+      <div className="relative h-24 flex items-center justify-center overflow-hidden">
+        <motion.div
+          className="flex gap-3"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="w-3 h-3 rounded-full bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 animate-pulse"
+              style={{ animationDelay: `${i * 0.2}s` }}
+            />
+          ))}
+        </motion.div>
+      </div>
+    </LazyMotion>
   )
-}
+})
+
+export default SectionDivider
