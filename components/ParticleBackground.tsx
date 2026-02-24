@@ -24,7 +24,29 @@ export default function ParticleBackground() {
       opacity: number
     }> = []
 
-    const particleCount = 50
+    const particleCount = window.innerWidth < 768 ? 30 : 50
+
+    // Only animate when visible
+    let isVisible = true
+    let animationFrameId: number
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting
+          if (isVisible) {
+            animate()
+          } else {
+            cancelAnimationFrame(animationFrameId)
+          }
+        })
+      },
+      { threshold: 0 }
+    )
+
+    if (canvas) {
+      observer.observe(canvas)
+    }
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -70,20 +92,29 @@ export default function ParticleBackground() {
         })
       })
 
-      requestAnimationFrame(animate)
+      if (isVisible) {
+        animationFrameId = requestAnimationFrame(animate)
+      }
     }
 
     animate()
 
+    let resizeTimeout: NodeJS.Timeout
     const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(() => {
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+      }, 200)
     }
 
     window.addEventListener('resize', handleResize)
 
     return () => {
       window.removeEventListener('resize', handleResize)
+      observer.disconnect()
+      cancelAnimationFrame(animationFrameId)
+      clearTimeout(resizeTimeout)
     }
   }, [])
 

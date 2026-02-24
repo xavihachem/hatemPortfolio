@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 
 export default function CustomCursor() {
+  const [isMobile, setIsMobile] = useState(true)
   const [isHovering, setIsHovering] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
   const [cursorText, setCursorText] = useState('')
@@ -25,6 +26,16 @@ export default function CustomCursor() {
   const trail2YSpring = useSpring(cursorY, trail2SpringConfig)
 
   useEffect(() => {
+    // Check if it's a touch device / mobile
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(hover: none) and (pointer: coarse)').matches)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
+    if (isMobile) return
+
     const updateMousePosition = (e: MouseEvent) => {
       cursorX.set(e.clientX)
       cursorY.set(e.clientY)
@@ -61,12 +72,17 @@ export default function CustomCursor() {
     window.addEventListener('mouseup', handleMouseUp)
 
     return () => {
-      window.removeEventListener('mousemove', updateMousePosition)
-      window.removeEventListener('mouseover', handleMouseOver)
-      window.removeEventListener('mousedown', handleMouseDown)
-      window.removeEventListener('mouseup', handleMouseUp)
+      window.removeEventListener('resize', checkMobile)
+      if (!isMobile) {
+        window.removeEventListener('mousemove', updateMousePosition)
+        window.removeEventListener('mouseover', handleMouseOver)
+        window.removeEventListener('mousedown', handleMouseDown)
+        window.removeEventListener('mouseup', handleMouseUp)
+      }
     }
-  }, [cursorX, cursorY])
+  }, [cursorX, cursorY, isMobile])
+
+  if (isMobile) return null
 
   const getCursorSize = () => {
     if (isClicking) return 8

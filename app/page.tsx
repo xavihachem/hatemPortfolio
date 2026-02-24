@@ -1,13 +1,16 @@
+import dynamic from 'next/dynamic'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
-import About from '@/components/About'
-import Projects from '@/components/Projects'
-import Skills from '@/components/Skills'
-import Contact from '@/components/Contact'
-import Footer from '@/components/Footer'
 import CustomCursor from '@/components/CustomCursor'
-import ParticleBackground from '@/components/ParticleBackground'
-import SectionDivider from '@/components/SectionDivider'
+
+// Lazy load components that are below the fold
+const About = dynamic(() => import('@/components/About'), { ssr: false })
+const Projects = dynamic(() => import('@/components/Projects'), { ssr: false })
+const Skills = dynamic(() => import('@/components/Skills'), { ssr: false })
+const Contact = dynamic(() => import('@/components/Contact'), { ssr: false })
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false })
+const ParticleBackground = dynamic(() => import('@/components/ParticleBackground'), { ssr: false })
+const SectionDivider = dynamic(() => import('@/components/SectionDivider'), { ssr: false })
 
 export default function Home() {
   return (

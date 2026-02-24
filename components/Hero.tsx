@@ -1,12 +1,19 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import { Github, Linkedin, Mail, Download, ArrowDown, Sparkles, Code, Zap, ChevronDown, Play } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Image from 'next/image'
 
 export default function Hero() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springConfig = { damping: 25, stiffness: 200 }
+  const xSpring = useSpring(mouseX, springConfig)
+  const ySpring = useSpring(mouseY, springConfig)
+  const rotateX = useTransform(ySpring, [-20, 20], [10, -10])
+  const rotateY = useTransform(xSpring, [-20, 20], [-10, 10])
+
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 800], [0, 200])
   const opacity = useTransform(scrollY, [0, 600], [1, 0])
@@ -16,14 +23,14 @@ export default function Hero() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      })
+      const x = (e.clientX / window.innerWidth - 0.5) * 40
+      const y = (e.clientY / window.innerHeight - 0.5) * 40
+      mouseX.set(x)
+      mouseY.set(y)
     }
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  }, [mouseX, mouseY])
 
   const socialLinks = [
     { icon: Github, href: 'https://github.com/xavihachem', label: 'GitHub' },
@@ -140,7 +147,9 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             style={{
-              transform: `rotateX(${mousePosition.y * 0.1}deg) rotateY(${mousePosition.x * 0.1}deg)`,
+              rotateX,
+              rotateY,
+              transformStyle: 'preserve-3d',
             }}
             className="mb-8"
           >
